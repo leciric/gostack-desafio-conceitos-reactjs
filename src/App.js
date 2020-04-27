@@ -15,7 +15,10 @@ function App() {
 
   async function handleAddRepository() {
     const response = await api.post('repositories', {
-      title: `New repository ${Date.now()}`,
+      id: "123",
+      url: "https://github.com/josepholiveira",
+      title: `Novo projeto ${Date.now()}`,
+      techs: ["React", "Node.js"],
     })
 
     const repository = response.data;
@@ -28,7 +31,7 @@ function App() {
     
     if(repositoryIndex < 0){
       console.log('Repositorio não existe');
-      return 1;
+      return;
     }
 
     await api.delete('repositories/' + id);
@@ -41,12 +44,12 @@ function App() {
       <ul data-testid="repository-list">
         
           {repositories.map(repository => (
-            <>
-              <li key={repository.id} >{repository.title}</li>
+            
+            <li key={repository.id} >{repository.title}
               <button onClick={() => handleRemoveRepository(repository.id)}>
               Remover
               </button>
-            </>
+            </li>
           ))
         }
           
